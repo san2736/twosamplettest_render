@@ -36,7 +36,7 @@ def san(a, b, alt):
 
 @app.route("/")
 def home():
-    return render_template("template/app.html")
+    return render_template("app.html")
 
 @app.route("/run_test", methods=["POST"])
 def run_test():
@@ -52,5 +52,6 @@ def run_test():
 
 if __name__ == "__main__":
     app.run()
+
 
 
