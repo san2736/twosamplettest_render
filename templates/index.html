@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Two Sample t-Test</title>
+</head>
+
+<body>
+
+<h2>Two Sample t-Test</h2>
+
+<p>Enter sample values separated by commas</p>
+
+<label>Sample A</label><br>
+<input type="text" id="sampleA" value="10,12,14,15"><br><br>
+
+<label>Sample B</label><br>
+<input type="text" id="sampleB" value="9,11,13,14"><br><br>
+
+<label>Alternative Hypothesis</label><br>
+<select id="alt">
+<option value="two-sided">two-sided</option>
+<option value="greater">greater</option>
+<option value="less">less</option>
+</select><br><br>
+
+<button onclick="runTest()">Run Test</button>
+
+<h3>Results</h3>
+<div id="results"></div>
+
+<script>
+
+function runTest(){
+
+let a = document.getElementById("sampleA").value
+.split(",")
+.map(Number)
+
+let b = document.getElementById("sampleB").value
+.split(",")
+.map(Number)
+
+let alt = document.getElementById("alt").value
+
+fetch("/run_test",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({a:a,b:b,alt:alt})
+})
+.then(response=>response.json())
+.then(data=>{
+
+if(data.error){
+document.getElementById("results").innerHTML=data.error
+return
+}
+
+document.getElementById("results").innerHTML =
+"t calculated: " + data.t_calculated + "<br>" +
+"degrees of freedom: " + data.df + "<br>" +
+"p-value: " + data.p_value + "<br>" +
+"t critical: " + JSON.stringify(data.t_critical) + "<br>" +
+"confidence interval: " + JSON.stringify(data.confidence_interval)
+
+})
+
+}
+
+</script>
+
+</body>
+</html>
