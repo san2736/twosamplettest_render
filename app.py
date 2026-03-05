@@ -5,7 +5,7 @@ from statistics import stdev
 import psycopg2
 import os
 
-DATABASE_URL = os.environ.get("DATABASE_URL")
+DATABASE_URL = os.environ.get("postgresql://twosample_user:sklgbzHYoLamTyTZ7bt3LAWA6WOttOb1@dpg-d6ksp9nafjfc73em79rg-a.oregon-postgres.render.com/twosample")
 
 conn = psycopg2.connect(DATABASE_URL)
 cur = conn.cursor()
@@ -59,6 +59,7 @@ def run_test():
 
 if __name__ == "__main__":
     app.run()
+
 
 
 
