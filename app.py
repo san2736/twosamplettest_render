@@ -2,6 +2,13 @@ from flask import Flask, request, jsonify, render_template
 import numpy as np
 from scipy.stats import t
 from statistics import stdev
+import psycopg2
+import os
+
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+conn = psycopg2.connect(DATABASE_URL)
+cur = conn.cursor()
 
 app = Flask(__name__)   # THIS LINE IS REQUIRED
 
@@ -52,6 +59,7 @@ def run_test():
 
 if __name__ == "__main__":
     app.run()
+
 
 
 
